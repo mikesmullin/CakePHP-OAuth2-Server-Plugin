@@ -1,0 +1,3 @@
+[submodule "vendors/oauth2-php"]
+	path = vendors/oauth2-php
+	url = git://github.com/mikesmullin/OAuth2-PHP.git
