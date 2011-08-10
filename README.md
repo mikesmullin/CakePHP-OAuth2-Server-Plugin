@@ -15,7 +15,7 @@ Installation & Usage
 
 Place this directory in your plugins dir:
 
-    git submodule add git://github.com/mikesmullin/CakePHP-OAuth2-Server-Plugin.git ./app/plugins/oauth/
+    git submodule add git://github.com/mikesmullin/CakePHP-OAuth2-Server-Plugin.git ./app/plugins/o_auth2_server/
 
 Download the latest version of Tim Ridgley's oauth2-php into `./app/plugins/oauth/vendors/oauth2-php/`, as well:
 
@@ -23,8 +23,8 @@ Download the latest version of Tim Ridgley's oauth2-php into `./app/plugins/oaut
 
 Add this line to your ./app/config/routes.php:
 
-   // include CakePHP-OAuth2-Server-Plugin routes
-   require_once App::pluginPath('OAuth2Server') .'config'. DS .'routes.php';
+    // include CakePHP-OAuth2-Server-Plugin routes
+    require_once App::pluginPath('OAuth2Server') .'config'. DS .'routes.php';
 
 Run this plugin's migrations (requires CakePHP Migrations plugin by CakeDC)
 
