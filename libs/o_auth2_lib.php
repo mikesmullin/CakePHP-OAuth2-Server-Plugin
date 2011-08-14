@@ -212,16 +212,22 @@ class OAuth2Lib extends OAuth2 {
 	 * Required for USER_CREDENTIALS_GRANT_TYPE
 	 */
 	public function check_user_credentials($client_id, $username, $password) {
-		$Auth = Configure::read('OAuth2Server.Auth.className');
-		return (boolean)
+		if (
 			   !empty($username)
 			&& !empty($password)
-
+		) {
 			// use CakePHP Auth Component to validate user credentials
-			&& $this->controller->$Auth->identify(array(
-			  Configure::read('OAuth2Server.Auth.fields.username') => $username,
-			  Configure::read('OAuth2Server.Auth.fields.password') => $Auth == 'Auth'? Security::hash($password, null, true) : $password // only hash password for AuthComponent
-			));
+			$Auth = Configure::read('OAuth2Server.Auth.className');
+			$data = array(
+				Configure::read('OAuth2Server.Auth.fields.username') => $username,
+				Configure::read('OAuth2Server.Auth.fields.password') => $password
+			);
+			if ($Auth == 'Auth') { // only pre-hash passwords for original Auth component
+				$data = $this->controller->$Auth->hashPasswords($data);
+			}
+			return (boolean) $this->controller->$Auth->identify($data);
+		}
+		return false;
 	}
 
 	/**
