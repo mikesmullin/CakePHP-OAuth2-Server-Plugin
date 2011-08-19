@@ -4,15 +4,24 @@
 Configure::load('OAuth2Server.config');
 
 class OAuth2ServerAppController extends AppController {
-	var $components = array('OAuth2', 'Auth');
+	var $components = array('OAuth2');
 	var $helpers = array();
+
+	/**
+	 * Dynamically set Auth component.
+	 */
+	function __construct() {
+		parent::__construct();
+		$this->components[] = Configure::read('OAuth2Server.Auth.className');
+	}
 
 	/**
 	 * beforeFilter() callback.
 	 * Configure Auth component.
 	 */
 	function beforeFilter() {
-		$this->Auth->deny('*');
+		$Auth = Configure::read('OAuth2Server.Auth.className');
+		$this->$Auth->deny('*');
 
 		foreach (array_merge(array(
 			'loginAction' => array(
@@ -25,7 +34,7 @@ class OAuth2ServerAppController extends AppController {
 			'authorize' => 'controller',
 			'allowedActions' => array('login', 'authorize', 'access_token')
 		), Configure::read('OAuth2Server.Auth')) as $k => $v) {
-			$this->Auth->{$k} = $v;
+			$this->$Auth->{$k} = $v;
 		}
 
 		return parent::beforeFilter(); // bubble up

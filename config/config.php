@@ -6,9 +6,10 @@ $config['OAuth2Server'] = array(
 	'refresh_token_lifetime'	=> 60*60*24*7*2, // 2 weeks
 
 	'Auth' => array(
+		'className' => 'Auth',
 		'fields' => array(
 			'username' => 'email',
 			'password' => 'password'
 		)
-	),
+	)
 );
