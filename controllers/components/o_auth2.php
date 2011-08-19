@@ -88,7 +88,7 @@ class OAuth2Component extends Object {
 			}
 		}
 		if ($throwExceptionOnFail) {
-			throw new Exception(__('Invalid or expired access_token.', true));
+			throw new Exception(__('Invalid, expired, or underprivileged access_token.', true));
 			return false;
 		}
 	}
